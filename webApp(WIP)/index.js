@@ -1,9 +1,10 @@
 const containerEl = document.querySelector('.container')
-const numbers = [1]
+const numbers = [0]
+const lastNum = []
 
 let numbersIndex = 0
 let charIndex = 0
-let counter = 1
+let counter = 0
 
 /*function updateStopwatch(){
     charIndex++
@@ -22,32 +23,34 @@ let counter = 1
     setTimeout(updateStopwatch, 400);
 }*/
 
-/*function stopStopwatch(){
-    containerEl.innerHTML=`
-    <h1>Stopped at: </h1>
-    `;
-}*/
-
+containerEl.innerHTML =`
+<button id="start" onclick="updateStopwatch()">START</button> 
+`;
 
 function updateStopwatch(){
-        charIndex++
             containerEl.innerHTML = `
-            <h1>Stopwatch(s): ${numbers[numbersIndex]} </h1>
+            <h1>Stopwatch: ${numbers[numbersIndex]}(s) </h1>
+            <button id="stop">STOP</button>
             `;
+            charIndex++
+            counter++
             numbersIndex++
 
         if(numbersIndex === numbers.length){
             numbersIndex = 0
         }
-        counter++
-        numbers.push(counter)
+    numbers.push(counter)
     setTimeout(updateStopwatch, 1000);
-
+    document.getElementById("stop").addEventListener("click", stopStopwatch)
+    return;
 } 
 
 function stopStopwatch(){
-    containerEl.innerHTML=`
-    <h1>Stopped at: ${numbers[numbers.length - 1]}</h1>
+    const last = numbers[numbers.length - 1];
+    lastNum.push(last)
+    const stopNum = lastNum[0];
+    containerEl.innerHTML = `
+    <h1>Stopped at: ${stopNum}seconds</h1>
+    <button id="reset" onclick="resetStopwatch()">RESET</button>
     `;
 }
-
